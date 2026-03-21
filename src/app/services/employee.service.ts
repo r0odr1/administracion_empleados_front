@@ -7,4 +7,8 @@ export class EmployeeService {
   private apiUrl = 'http://localhost:5001/api/employees';
 
   constructor(private http: HttpClient) {}
+
+  getAll(){
+    return this.http.get<Employee[]>(this.apiUrl);
+  }
 }
