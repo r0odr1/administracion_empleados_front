@@ -11,4 +11,8 @@ export class EmployeeService {
   getAll(){
     return this.http.get<Employee[]>(this.apiUrl);
   }
+
+  getById(id: number){
+    return this.http.get<Employee>(`${this.apiUrl}/${id}`);
+  }
 }
