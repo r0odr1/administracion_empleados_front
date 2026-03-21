@@ -19,4 +19,8 @@ export class EmployeeService {
   create(e: Employee){
     return this.http.post<Employee>(this.apiUrl, e);
   }
+
+  update(id: number, e: Employee){
+    return this.http.put(`${this.apiUrl}/${id}`, e);
+  }
 }
