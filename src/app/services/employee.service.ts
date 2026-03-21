@@ -15,4 +15,8 @@ export class EmployeeService {
   getById(id: number){
     return this.http.get<Employee>(`${this.apiUrl}/${id}`);
   }
+
+  create(e: Employee){
+    return this.http.post<Employee>(this.apiUrl, e);
+  }
 }
