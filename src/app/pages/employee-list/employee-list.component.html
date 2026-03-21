@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="header">
+    <h2>Gestión de Empleados</h2>
+    <div>
+      <a routerLink="/employees/new" class="btn btn-primary">+ Nuevo</a>
+      <button (click)="auth.logout()" class="btn btn-logout">Cerrar sesión</button>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Nombre</th><th>Apellido</th><th>Email</th>
+      <th>Cargo</th><th>Ingreso</th><th>Estado</th><th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let emp of employees">
+      <td>{{ emp.nombre }}</td>
+      <td>{{ emp.apellido }}</td>
+      <td>{{ emp.email }}</td>
+      <td>{{ emp.cargo }}</td>
+      <td>{{ emp.fechaIngreso | date:'dd/MM/yyyy' }}</td>
+      <td>{{ emp.estado ? 'Activo' : 'Inactivo' }}</td>
+      <td>
+        <a [routerLink]="['/employees/edit', emp.id]" class="btn btn-edit">Editar</a>
+        <button (click)="delete(emp.id!)" class="btn btn-delete">Eliminar</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
