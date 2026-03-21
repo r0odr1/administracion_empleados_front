@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>{{ isEdit ? 'Editar' : 'Nuevo' }} Empleado</h2>
+  <form (ngSubmit)="onSubmit()">
+    <label>Nombre</label>
+    <input [(ngModel)]="employee.nombre" name="nombre" required />
+
+    <label>Apellido</label>
+    <input [(ngModel)]="employee.apellido" name="apellido" required />
+
+    <label>Email</label>
+    <input [(ngModel)]="employee.email" name="email" type="email" required />
+
+    <label>Cargo</label>
+    <input [(ngModel)]="employee.cargo" name="cargo" required />
+
+    <label>Fecha de Ingreso</label>
+    <input [(ngModel)]="employee.fechaIngreso" name="fechaIngreso" type="date" required />
+
+    <label>Estado</label>
+    <select [(ngModel)]="employee.estado" name="estado">
+      <option [ngValue]="true">Activo</option>
+      <option [ngValue]="false">Inactivo</option>
+    </select>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a routerLink="/employees" class="btn btn-cancel">Cancelar</a>
+    </div>
+  </form>
+</div>
