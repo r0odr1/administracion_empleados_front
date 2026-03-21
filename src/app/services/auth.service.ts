@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5001/api/auth';
+  private apiUrl = 'http://localhost:5269/api/auth';
 
   constructor(private http: HttpClient, private router: Router) {}
 
