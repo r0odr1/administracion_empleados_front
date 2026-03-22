@@ -14,7 +14,7 @@
       <th>Cargo</th><th>Ingreso</th><th>Estado</th><th>Acciones</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="employees$ | async as employees">
     <tr *ngFor="let emp of employees">
       <td>{{ emp.nombre }}</td>
       <td>{{ emp.apellido }}</td>

@@ -13,8 +13,10 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
 
   getAll(){
-    this.http.get<Employee[]>(this.apiUrl)
-      .subscribe(data => this.employeesSubject.next(data));
+    this.http.get<Employee[]>(this.apiUrl).subscribe({
+      next: data => this.employeesSubject.next(data),
+      error: err => console.error('ERROR GET EMPLOYEES:', err)
+    });
   }
 
   getById(id: number){
