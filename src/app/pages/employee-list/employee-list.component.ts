@@ -19,15 +19,17 @@ export class EmployeeListComponent implements OnInit {
     public auth: AuthService
   ) {}
 
-  ngOnInit() { this.loadEmployees(); }
+  ngOnInit() {
+    this.empService.employees$.subscribe(data => {
+      this.employees = data;
+    });
 
-  loadEmployees() {
-    this.empService.getAll().subscribe(data => this.employees = data);
+    this.empService.getAll();
   }
 
   delete(id: number) {
     if (confirm('¿Eliminar empleado?')) {
-      this.empService.delete(id).subscribe(() => this.loadEmployees());
+      this.empService.delete(id).subscribe(() => this.empService.getAll());
     }
   }
 

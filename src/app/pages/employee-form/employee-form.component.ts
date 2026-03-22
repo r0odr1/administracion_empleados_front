@@ -40,10 +40,18 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   onSubmit() {
+    const navigateToList = () => {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/employees']);
+      });
+    };
+
     if (this.isEdit) {
-      this.empService.update(this.employee.id!, this.employee).subscribe(() => this.router.navigate(['/employees']));
+      this.empService.update(this.employee.id!, this.employee)
+        .subscribe(() => navigateToList());
     } else {
-      this.empService.create(this.employee).subscribe(() => this.router.navigate(['/employees']));
+      this.empService.create(this.employee)
+        .subscribe(() => navigateToList());
     }
   }
 }
