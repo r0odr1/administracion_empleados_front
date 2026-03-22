@@ -22,7 +22,7 @@
       <td>{{ emp.cargo }}</td>
       <td>{{ emp.fechaIngreso }}</td>
       <td>{{ emp.estado ? 'Activo' : 'Inactivo' }}</td>
-      <td>
+      <td class="actions">
         <a [routerLink]="['/employees/edit', emp.id]" class="btn btn-edit">Editar</a>
         <button (click)="delete(emp.id!)" class="btn btn-delete">Eliminar</button>
       </td>

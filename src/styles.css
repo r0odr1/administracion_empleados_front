@@ -37,6 +37,8 @@ th, td {
   border-bottom: 1px solid #eee;
 }
 
+
+
 th {
   background: #1976d2;
   color: white;
@@ -134,4 +136,9 @@ form {
   color: #c62828;
   padding: 10px;
   border-radius: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
 }
