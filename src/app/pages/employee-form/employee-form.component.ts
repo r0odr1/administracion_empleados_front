@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, inject} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
@@ -22,6 +22,8 @@ export class EmployeeFormComponent implements OnInit {
     estado: true
   };
 
+  private cdr = inject(ChangeDetectorRef);
+
   constructor(
     private empService: EmployeeService,
     private route: ActivatedRoute,
@@ -34,7 +36,9 @@ export class EmployeeFormComponent implements OnInit {
     if (id) {
       this.isEdit = true;
       this.empService.getById(+id).subscribe(e => {
-        this.employee = { ...e, fechaIngreso: e.fechaIngreso.substring(0, 10) };
+        this.employee = {...e, fechaIngreso: e.fechaIngreso.substring(0, 10) };
+
+        this.cdr.detectChanges();
       });
     }
   }
