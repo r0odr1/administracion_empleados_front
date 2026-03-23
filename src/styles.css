@@ -142,3 +142,27 @@ form {
   display: flex;
   gap: 8px;
 }
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.search-box input {
+  width: 200px;
+}
+
+.search-result {
+  margin-bottom: 24px;
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.search-result h4 {
+  background: #e3f2fd;
+  padding: 8px 16px;
+  color: #1976d2;
+}
