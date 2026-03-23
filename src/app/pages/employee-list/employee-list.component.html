@@ -7,26 +7,47 @@
     </div>
   </div>
 
+  <div class="search-box">
+    <input
+      type="number"
+      [(ngModel)]="searchId"
+      placeholder="Buscar por ID..."
+      min="1"
+    />
+    <button (click)="searchById()" class="btn btn-primary">Buscar</button>
+    <button (click)="clearSearch()" class="btn btn-cancel">Limpiar</button>
+  </div>
+
+  <div *ngIf="searchError" class="error">{{ searchError }}</div>
+
   <table>
     <thead>
-    <tr>
-      <th>Nombre</th><th>Apellido</th><th>Email</th>
-      <th>Cargo</th><th>Ingreso</th><th>Estado</th><th>Acciones</th>
-    </tr>
+      <tr>
+        <th>ID</th><th>Nombre</th><th>Apellido</th><th>Email</th>
+        <th>Cargo</th><th>Ingreso</th><th>Estado</th><th>Acciones</th>
+      </tr>
     </thead>
-    <tbody *ngIf="employees$ | async as employees">
-    <tr *ngFor="let emp of employees">
-      <td>{{ emp.nombre }}</td>
-      <td>{{ emp.apellido }}</td>
-      <td>{{ emp.email }}</td>
-      <td>{{ emp.cargo }}</td>
-      <td>{{ emp.fechaIngreso | date: 'dd/MM/yyyy' }}</td>
-      <td>{{ emp.estado ? 'Activo' : 'Inactivo' }}</td>
-      <td class="actions">
-        <a [routerLink]="['/employees/edit', emp.id]" class="btn btn-edit">Editar</a>
-        <button (click)="delete(emp.id!)" class="btn btn-delete">Eliminar</button>
-      </td>
-    </tr>
+
+    <tbody *ngIf="displayEmployees$ | async as employees">
+      <tr *ngIf="employees.length === 0">
+        <td colspan="8" style="text-align:center;">
+          {{ searchId ? 'No se encontró empleado con ese ID' : 'No hay empleados' }}
+        </td>
+      </tr>
+
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.id }}</td>
+        <td>{{ emp.nombre }}</td>
+        <td>{{ emp.apellido }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.cargo }}</td>
+        <td>{{ emp.fechaIngreso | date:'dd/MM/yyyy' }}</td>
+        <td>{{ emp.estado ? 'Activo' : 'Inactivo' }}</td>
+        <td class="actions">
+          <a [routerLink]="['/employees/edit', emp.id]" class="btn btn-edit">Editar</a>
+          <button (click)="delete(emp.id!)" class="btn btn-delete">Eliminar</button>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

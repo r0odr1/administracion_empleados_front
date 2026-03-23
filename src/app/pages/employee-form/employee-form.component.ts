@@ -2,7 +2,7 @@ import {Component, OnInit, ChangeDetectorRef, inject} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
-import { Employee } from '../../models/employee.model';
+import {Employee, EmployeeFormModel} from '../../models/employee.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class EmployeeFormComponent implements OnInit {
   isEdit = false;
 
-  employee: Employee = {
+  employee: EmployeeFormModel = {
     nombre: '',
     apellido: '',
     email: '',
@@ -36,11 +36,17 @@ export class EmployeeFormComponent implements OnInit {
     if (id) {
       this.isEdit = true;
       this.empService.getById(+id).subscribe(e => {
-        this.employee = {...e, fechaIngreso: e.fechaIngreso.substring(0, 10) };
-
+        this.employee = {
+          ...e,
+          fechaIngreso: this.formatDate(e.fechaIngreso)
+        }
         this.cdr.detectChanges();
       });
     }
+  }
+
+  formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
   }
 
   onSubmit() {
@@ -50,11 +56,16 @@ export class EmployeeFormComponent implements OnInit {
       });
     };
 
+    const payload: Employee = {
+      ...this.employee,
+      fechaIngreso: new Date(this.employee.fechaIngreso)
+    };
+
     if (this.isEdit) {
-      this.empService.update(this.employee.id!, this.employee)
+      this.empService.update(this.employee.id!, payload)
         .subscribe(() => navigateToList());
     } else {
-      this.empService.create(this.employee)
+      this.empService.create(payload)
         .subscribe(() => navigateToList());
     }
   }
