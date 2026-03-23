@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Employee } from '../models/employee.model';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, map} from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
@@ -20,7 +20,12 @@ export class EmployeeService {
   }
 
   getById(id: number){
-    return this.http.get<Employee>(`${this.apiUrl}/${id}`);
+    return this.http.get<Employee>(`${this.apiUrl}/${id}`).pipe(
+      map(emp => ({
+        ...emp,
+        fechaIngreso: new Date(emp.fechaIngreso)
+      }))
+    );
   }
 
   create(e: Employee){
